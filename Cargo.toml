@@ -1,11 +1,13 @@
 [package]
-name = "advent_of_code"
-version = "0.8.0"
-authors = ["Felix Spöttel <1682504+fspoettel@users.noreply.github.com>"]
+name = "aoc"
+version = "0.1.0"
+authors = ["Johann Homonnai <github.com/murasakiwano>"]
 edition = "2021"
-default-run = "advent_of_code"
+default-run = "aoc"
 publish = false
+
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-pico-args = "0.5.0"
+anyhow = "1.0.71"
+itertools = "0.11.0"
