@@ -1,13 +1,18 @@
 use anyhow::Result;
 use itertools::Itertools;
 
-fn part1() -> Result<u64> {
-    let groups = include_str!("../inputs/01.txt")
+type ElvenCalories = Vec<Option<u64>>;
+
+fn parse_input(filepath: &str) -> Result<ElvenCalories> {
+    let input_string = std::fs::read_to_string(filepath)?;
+    Ok(input_string
         .lines()
         .map(|l| l.parse::<u64>().ok())
-        .collect::<Vec<_>>();
+        .collect::<ElvenCalories>())
+}
 
-    Ok(groups
+fn get_max_group(groups: Vec<Option<u64>>) -> u64 {
+    groups
         .into_iter()
         .coalesce(|x, y| match (x, y) {
             (None, None) => Err((x, y)),
@@ -17,7 +22,17 @@ fn part1() -> Result<u64> {
         })
         .flatten()
         .max()
-        .unwrap_or(0))
+        .unwrap_or(0)
+}
+
+fn part1() -> Result<u64> {
+    let groups = parse_input("../inputs/01.txt")?;
+
+    Ok(get_max_group(groups))
+}
+
+fn part2() -> Result<u64> {
+    Ok(0)
 }
 
 fn main() -> Result<()> {
