@@ -3,17 +3,25 @@
 Solutions for [Advent of Code](https://adventofcode.com/) in [Rust](https://www.rust-lang.org/).
 
 <!--- advent_readme_stars table --->
+
 ## 2022 Results
 
-| Day | Part 1 | Part 2 |
-| :---: | :---: | :---: |
-| [Day 1](https://adventofcode.com/2022/day/1) | ⭐ | ⭐ |
+|                     Day                      | Part 1 | Part 2 |
+| :------------------------------------------: | :----: | :----: |
+| [Day 1](https://adventofcode.com/2022/day/1) |   ⭐   |   ⭐   |
+
 <!--- advent_readme_stars table --->
 
 ## Structure
 
 Solutions for each day live in the `src/bin` directory, with the number of the day being the filename.
 Examples for each day live in the `src/examples` directory, and the inputs are ignored by git.
+
+## Plans
+
+-   [ ] 2022 - Rust
+-   [ ] 2021 - Swift
+-   [ ] 2020 - Golang
 
 #### Credits
 
