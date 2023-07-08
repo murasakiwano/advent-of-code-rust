@@ -73,7 +73,7 @@ fn score_one_round(round: &RPSLine) -> u32 {
 }
 
 fn main() -> Result<()> {
-    let input: Vec<RPSLine> = aoc::read_input("src/inputs/02.txt")?;
+    let input: Vec<RPSLine> = aoc::read_input("inputs", 2)?;
 
     let score = input.iter().fold(0, |acc, ele| acc + score_one_round(ele));
 
