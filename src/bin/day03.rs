@@ -12,7 +12,10 @@ fn is_in_both(candidate: &char, first_half: &str, second_half: &str) -> bool {
     first_half.chars().any(|c| c == *candidate) && second_half.chars().any(|c| c == *candidate)
 }
 
-fn process_string(input: &str) -> Result<Vec<(char, u32)>> {
+fn process_string<F>(input: &str, processor: F) -> Result<Vec<(char, u32)>>
+where
+    F: Fn(&char, &str, &str) -> bool,
+{
     let split_input = input.split_at(input.len() / 2);
     if split_input.0.len() != split_input.1.len() {
         return Err(ProcessingError::SplittingError.into());
@@ -23,21 +26,27 @@ fn process_string(input: &str) -> Result<Vec<(char, u32)>> {
     let zipped_types = zipped_lower.merge(zipped_upper);
 
     let repeated_types = zipped_types
-        .filter(|(c, _p)| is_in_both(c, split_input.0, split_input.1))
+        .filter(|(c, _p)| processor(c, split_input.0, split_input.1))
         .collect();
 
     Ok(repeated_types)
 }
 
-fn main() -> Result<()> {
-    let input: Vec<String> = aoc::read_input("inputs", 3)?;
+fn part_one(input: &Vec<String>) -> Result<u32> {
     let mut repetitions = Vec::new();
 
     for s in input {
-        repetitions.push(process_string(&s)?[0]); // supposed to only be one
+        repetitions.push(process_string(s, is_in_both)?[0]); // supposed to only be one
     }
 
-    println!("{:?}", repetitions.iter().fold(0, |acc, el| acc + el.1));
+    Ok(repetitions.iter().fold(0, |acc, el| acc + el.1))
+}
+
+fn main() -> Result<()> {
+    let input: Vec<String> = aoc::read_input("inputs", 3)?;
+    let part1 = part_one(&input)?;
+
+    println!("part one: {part1:?}");
 
     Ok(())
 }
