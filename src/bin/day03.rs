@@ -8,8 +8,8 @@ enum ProcessingError {
     SplittingError,
 }
 
-fn is_in_both(candidate: &char, first_half: &str, second_half: &str) -> bool {
-    first_half.chars().any(|c| c == *candidate) && second_half.chars().any(|c| c == *candidate)
+fn includes_char(candidate: &char, test_str: &str) -> bool {
+    test_str.chars().any(|c| c == *candidate)
 }
 
 fn process_string<F>(input: &str, processor: F) -> Result<Vec<(char, u32)>>
@@ -35,8 +35,12 @@ where
 fn part_one(input: &Vec<String>) -> Result<u32> {
     let mut repetitions = Vec::new();
 
+    let processor = |candidate: &char, first_half: &str, second_half: &str| -> bool {
+        includes_char(candidate, first_half) && includes_char(candidate, second_half)
+    };
+
     for s in input {
-        repetitions.push(process_string(s, is_in_both)?[0]); // supposed to only be one
+        repetitions.push(process_string(s, processor)?[0]); // supposed to only be one
     }
 
     Ok(repetitions.iter().fold(0, |acc, el| acc + el.1))
