@@ -1,6 +1,8 @@
 use anyhow::Result;
 use std::str::FromStr;
 
+pub mod parsers;
+
 pub fn read_input<T>(kind: &str, day: usize) -> Result<Vec<T>>
 where
     T: FromStr,
