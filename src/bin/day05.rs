@@ -6,12 +6,12 @@ type Line = Vec<&'static str>;
 type Stacks = Vec<Line>;
 
 fn main() {
-    // let example = include_str!("../examples/05.txt");
-    // println!("{:?}", arrange_stacks(example));
+    let example = include_str!("../examples/05.txt");
+    println!("{:?}", arrange_stacks(example));
 
-    let input = include_str!("../inputs/05.txt");
-    let result = arrange_stacks(input);
-    println!("{:?}", result);
+    // let input = include_str!("../inputs/05.txt");
+    // let result = arrange_stacks(input);
+    println!("{:?}", example);
 }
 
 /// Does the logic of arranging the stacks
@@ -44,28 +44,16 @@ fn move_crates(stacks: &mut Stacks, motion: &[usize]) {
     let takeoff_stack = motion[1];
     let landing_stack = motion[2];
 
-    dbg!(&stacks);
-    let mut i = 0;
     let mut moving_stack = vec![];
-    while i < quantity {
+    for _ in 0..quantity {
         let Some(ele) = stacks[takeoff_stack].pop() else { todo!() };
         moving_stack.push(ele);
-
-        i += 1;
     }
 
-    i = 0;
-
-    while i < quantity {
+    for _ in 0..quantity {
         let Some(ele) = moving_stack.pop() else { todo!() };
         stacks[landing_stack].push(ele);
-
-        i += 1;
     }
-
-    dbg!(quantity);
-    dbg!(moving_stack);
-    dbg!(stacks);
 }
 
 fn revert_and_transpose(input: &[WrappedLine]) -> Vec<WrappedLine> {
@@ -114,7 +102,7 @@ mod tests {
     #[test]
     fn move_more_than_one_crate() {
         let mut stacks = vec![vec!["D", "A"], vec!["E", "B", "C"], vec![]];
-        let expected = vec![vec![], vec!["E", "B", "C"], vec!["A", "D"]];
+        let expected = vec![vec![], vec!["E", "B", "C"], vec!["D", "A"]];
 
         let motion = "move 2 from 1 to 3";
         let motion = parse_move(motion).unwrap().1;
